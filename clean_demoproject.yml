@@ -1,0 +1,48 @@
+## delete project - early playbook
+
+
+- hosts: gen82
+  gather_facts: False
+  tasks:
+#  - name: load auth
+#    shell: source /root/keystonerc_admin
+
+
+
+  - name: "delete: create demo server 1"
+    os_server:
+      cloud: openstackdemo
+      state: absent
+      name: tst_001
+
+
+  - name: "delete: instance 1 prerequis - volume 1"
+    os_volume:
+      state: absent
+      cloud: openstackdemo
+      display_name: tst_001_1
+
+  - name: "delete: instance 1 prerequis - volume 2"
+    os_volume:
+      state: absent
+      cloud: openstackdemo
+      display_name: tst_001_2
+
+
+  - name: "delete: create demo server 2"
+    os_server:
+      cloud: openstackdemo
+      state: absent
+      name: tst_002
+
+  - name: "delete: instance 2 prerequis - volume 1"
+    os_volume:
+      state: absent
+      cloud: openstackdemo
+      display_name: tst_002_1
+
+  - name: "delete: instance 2 prerequis - volume 2"
+    os_volume:
+      state: absent
+      cloud: openstackdemo
+      display_name: tst_002_2
