@@ -17,32 +17,29 @@ def print_menu():       ## Your menu design here
     print "6. connect tst006"
     print "7. switch to root"
     print "8. connect ilo"
-        #    print "9. Exit"
-        #    print  * "-"
-
 
 loop=True
 
 while loop:          ## While loop which will keep going until loop = False
-   print_menu()    ## Displays menu
-   choice = input('Enter your choice [1-5]: ')
+  print_menu()    ## Displays menu
+  choice = input('Enter your choice [1-5]: ')
 
-   if choice==1:
-        subprocess.call(['ssh', '-i', 'openstack_demo', '-l', 'centos', 'tst001'])
-        #subprocess.call(['ssh', '-i', '/home/xxx/openstack_demo', '-l', 'centos', 'tst001'])
-   elif choice==2:
-        subprocess.call(['ssh', '-i', '/home/xxx/openstack_demo', '-l', 'centos', 'tst002'])
-   elif choice==3:
-            subprocess.call(['ssh', '-i', '/home/xxx/openstack_demo', '-l', 'centos', 'tst003'])
-   elif choice==4:
-                subprocess.call(['ssh', '-i', '/home/xxx/openstack_demo', '-l', 'centos', 'tst004'])
-   elif choice==5:
-                subprocess.call(['ssh', '-i', '/home/xxx/openstack_demo', '-l', 'centos', 'tst005'])
-   elif choice==6:
-                subprocess.call(['ssh', '-i', '/home/xxx/openstack_demo', '-l', 'centos', 'tst006'])
-   elif choice==7:
-            subprocess.call(['su', '-', 'root'])
-   elif choice==8:
-                subprocess.call(['ssh', '-l', 'admin', 'gen82'])
-   else:
-                raw_input("Wrong option selection. Enter any key to try again..")
+  if choice==1:
+        subprocess.call(['ssh', '-i', '/home/lab/openstack_demo', '-l', 'centos', 'tst001'])
+  elif choice==2:
+        subprocess.call(['ssh', '-i', '/home/lab/openstack_demo', '-l', 'centos', 'tst002'])
+  elif choice==3:
+        subprocess.call(['ssh', '-i', '/home/lab/openstack_demo', '-l', 'centos', 'tst003'])
+  elif choice==4:
+        subprocess.call(['ssh', '-i', '/home/lab/openstack_demo', '-l', 'centos', 'tst004'])
+  elif choice==5:
+        subprocess.call(['ssh', '-i', '/home/lab/openstack_demo', '-l', 'centos', 'tst005'])
+  elif choice==6:
+        subprocess.call(['ssh', '-i', '/home/lab/openstack_demo', '-l', 'centos', 'tst006'])
+  elif choice==7:
+        subprocess.call(['su', '-', 'root'])
+  elif choice==8:
+        subprocess.call(['ssh', '-l', 'account', 'gen82'])
+  else:
+        input("Wrong option selection. Enter any key to try again..")
+        sys.exit()
