@@ -1,0 +1,109 @@
+## on openstack
+## create project, users
+## create few vm with extra eth and disks
+
+
+### for os_server auth, use /root/.config/openstack/clouds.yml, not in-module parameters
+### add ssh key
+- hosts: gen82
+  gather_facts: False
+  vars:
+    auth_url: "{{ lookup('env', 'OS_AUTH_URL') }}"
+  tasks:
+  - name: load auth
+    shell: source /root/keystonerc_admin
+#  - name: "create project"
+#    os_project:
+#      state: present
+#      name: demoproject
+#      enabled: True
+#      domain_id: Default
+#
+#  - name: "create users"
+#    os_user:
+#      state: present
+#      name: demoprojectuser1
+#      password: demoprojectuser1
+#      domain: Default
+#      default_project: demoproject
+#
+#  - name: "assign user to role"
+#    os_user_role:
+#      user: demoprojectuser1
+#      role: _member_
+#      project: demoproject
+
+
+#### create private network, router with public=project connection
+#### adjust quotas to project
+#### add floating ips
+#### create 5 servers with 3 eth and 2 small disks
+
+
+### os_floating_ip  - add floating ip to project
+## check if security group has icmp and ssh enabled
+
+## create 5 servers
+#  - name: "load auth 2"
+#    shell: source /root/keystone_demoproject1
+
+
+#  - name: "generate  ssh keys"
+#    os_keypair:
+#      cloud: openstackdemo
+#      state: present
+#      name: openstackdemo
+
+
+# nice moment to practice advanced loops
+# create servers
+  - name: "instance prerequis - volume 1"
+    os_volume:
+      state: present
+      cloud: openstackdemo
+      size: 1
+      display_name: tst_000{{ item }}_1
+    loop:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+
+  - name: "instance 1 prerequis - volume 2"
+    os_volume:
+      state: present
+      cloud: openstackdemo
+      size: 1
+      display_name: tst_000{{ item }}_2
+    loop:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+
+
+  - name: "create demo servers"
+    os_server:
+      cloud: openstackdemo
+      state: present
+      name: tst_00{{ item }}
+      image: 1611
+      flavor: 6gb
+      security_groups: default
+      key_name: openstackdemo
+      nics:
+        - net-name: demo_private
+#      floating_ips:
+#        - 192.168.20{{ item }}
+      auto_ip: yes
+      volumes:
+        - tst_000{{ item }}_1
+        - tst_000{{ item }}_2
+    loop:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
